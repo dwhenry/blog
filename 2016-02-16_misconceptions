@@ -1,0 +1,19 @@
+# (mis)Conceptions
+
+Funny things misconceptions, what can be clear and obvious to one person can mean something completely different to another. 
+
+This is especially true when it comes to concepts. Take for example to the (Hive)[https://www.hivehome.com/] application, 
+used to control your home heating and hot water. It allows you to set the operating times and temperature.
+
+The feature I want to highlight is the **boost** functionality, this feature allows you turn the heating/hot water on for a 
+period of time without adding it to your schedule, very useful if you are home sick for the day.
+
+So why is the feature interesting? Because after a year of having the system in the house, my wife turned around and said 
+"I can't turn on boost at the moment" I realised - after a quick chat about why she wanted to do this - that she had assumed
+that the boost functionality increased the system temperature.
+
+Looking at the naming, it is clear why she would have thought this, it is an easy misconception to made. 
+
+So what can we do to avoid introducing similar misconceptions into our applications? The short answer is almost nothing, 
+as they are bound to creep in no matter how careful you are. The longer answer involves user testing, and ensuring the 
+users you choose to do the testing come from a range of demographics and backgrounds.
