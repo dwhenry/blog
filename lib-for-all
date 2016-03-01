@@ -1,0 +1,30 @@
+# Lib for all
+
+Someone recently commented on one of my pull requests saying they did not agree with the following line of code:
+
+    config.autoload_paths << "#{Rails.root}/lib"
+    
+Preferring instead to require the library when/where it is used. With a similar comment that ```spec_helper.rb``` 
+was superior to ```rails_helper.rb``` as the whole rails environment should not be required.
+
+**NOTE:** I am ignoring the speed arguement around loading rails in test for the purpose of this post.
+
+The issue that I see here is that tests are now being running in a different environment to production! because if 
+you have a rails application then production will have loaded rails. If a library is required in any of the rails 
+models/classes then the library is in fact global. 
+
+As such this sort of scoping just adds to confusion as you need to search the application for the require. 
+
+I am not arguing that scoping in code is bad, I also not suggesting that having multiple dependancies between you 
+code is good practice. What I am saying is that explicitly requiring libraries, and not loading rails when running your
+tests does not provide that component have better isolation. 
+
+Better isolation of code and reduced inter-dependancy - like so many thing with coding - is achieved by self-disipline
+when building the system.
+
+In closing can we remember that the goal of code is to help simplify life, and in my opinion, a key purpose of using a 
+framework is to simplify the process of writing code. Why then would I avoid a tool like autoload paths to include my 
+library code within the application. For those purists out there that disagree, can I suggest you extract the library 
+into a gem and then include that.
+
+
