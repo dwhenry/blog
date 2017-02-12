@@ -1,0 +1,13 @@
+# Fe Fi Fo Fum
+
+
+
+I recently had to make some small changes to a PDF generation process - using prince XML - basically reposiiton the address
+on the page and add page numbers, nothing to difficult.
+
+However during testing parts of the document where not being printed. The appeared correctly in the generated PDF,
+they just didn't make it to the printer. Added to that locally everything had worked as expected - I had even printed
+several pages to ensure it all lined up as required.
+
+
+
