@@ -1,9 +1,24 @@
 Where does the time go?
 
-I have recently started a new personal project, and as is the case with all new projects I am super keen and willing to spend all me free (i.e. none work) time on it, with the aim for getting it far enough along to be of value.
+I have recently started a new personal project, and as is the case with all new projects I am super keen and willing to spend my free (i.e. non-work) time working on it, with the aim of getting it far enough along to be of value.
 
-This means I am actively avoiding drinking, socialising (not much of that anyway) and any otehr activities that might take away my free time.
+Rather than following my established pattern for personal projects where I am super enthusiastic for a couple of weeks and then run out of steam without achieving anything I have been trying a new approach.
 
-Lately however I have found myself to be quite streatched and feel like the thing I need to drop is my new project. I know that if I do this I can almost guarentee that I wont pick it up again, and that cutting back the time I spend working on it is basically the same as giving up.
+By treating my personal project in a similar way to my day job, I have managed to add a lot of structure to the project, and have been working along on for a month in a half with a clear milestone in sight.
 
-My plan is to keep up the effort, I have a alpha release goal, though I find I add more things that I mark as complete because, well problems come up. But the feeling of success when I hit the target will be worth it, and you never know this might be the idea which allows me to give up my day job. :)
+So what did I do differently this time around:
+
+* I created a backlog of tasks with clear milestones.
+* priorities the task to be completed, understanding which would add value and which would not.
+* set realistic expectations for the amount of time needed to complete the tasks.
+* don't forget to have fun - there is no point trying to spend every waking moment working on the project, you will just burn out. At the same time, I did pick and choose which things you do.
+
+And finally, things I didn't do:
+
+* worry too much about adding tasks to my backlog if they are important.
+* worry too much about deprioritising tasks in the backlog as my vision of the project changed.
+* panic about taking two weeks out while I was sick.
+* get so caught up in the goal I didn't do any fun coding. I added cool graphs to one page.
+* get caught up in the fun code and lose sight of the goal. I added cool graphs to ONLY one page.
+* be afraid to delete/rework the problem if the first attempt wasn't very good.
+* use tooling - Trello, etc. - to keep track of my backlog, I have a simple about page listing the outstanding tasks.
