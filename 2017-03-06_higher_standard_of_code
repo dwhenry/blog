@@ -1,0 +1,17 @@
+Higher Standard of Code
+
+Someone recently said this to me during a conversation about the relavent merits of different approaches to coding. I wanted to write today about the dangers of such a beliefs.
+
+Everyone has their own stye of coding, the same as different companies having different development practises. This can be for a number of reason but can usually be traced back to a combination of:
+
+* time/cost pressures
+* developer training/work history
+* company/company owners goals
+* size/scope of the project
+
+It is easy to see how what may be vital for one project is in fact of limited importance in another. Take the simple example of tests. They are a vital component of any large scale web application which is expected to grow over time, but on a simple website serving static content they would offer limit, if any, value.
+
+While this is a slightly contrieved example, it is easy to see how a belief that you have used the one true approach in the past can lead to mistakenly believing it is the correct fit for all problems.
+
+As ultimately the best practise will come down to the requirements of the project. Good developers are  those who are able to change their processes to fit the project, while smart managers will take advantage of the experience of new programmers to improve the projects processes. As people who fail in these things are most likely to bring disent and disruption to the project.
+
