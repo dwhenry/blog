@@ -2,12 +2,66 @@
 
 Let me start by saying that I love the idea of `simple_form`. An easy way to generate forms with a standard - and automated - way of displaying errors when they occur and just generally give your whole site a consistent look and feel with very little overhead.
 
-I have come to realise that it may not be the friend it is pretending to be. On my latest project, I have been looking to migrate to using `simple_form` as I want to give my user better feedback on my forms around validation failures and it felt like the best option to achieve this.
+On my latest project, I have been looking to use `simple_form` and for the vanilla forms/field this certainly proved to be easy, however once I moved onto my more bespoke fields things soon became far more complicated.
 
-For the vanilla forms/field this certainly proved to be the case, once I moved onto the more bespoke fields it soon become clear that what I believed was a straightforward task, was in fact far more complicated, and would require me implementing custom field renders, and trying to understand how data is passed between the definition and final rendering stage.
+To do this I needed to use 'custom render', and typically of an opensource application the documentation only covered vanialla use cases, so creating a custom render was an undocumented process. Normally this would not have been a problem as I am happy to dig into the code and search for help on google. The difficulty here was that `simple_form` didn't live up to its name as the internals of the gem are anything but simple. I'm sure the architecture fits together easily once you understand it, but for me, it all felt like black magic.
 
-I found the internals of `simple_form` hard to get your head around. I'm sure the architecture fits together easily once you understand it, but for me, it all feels a bit like black magic, with most of the example being provided for trivial use cases.
+As such, I won't be using `simple_form` on my current project. Not because I think it is bad software or unfit for purpose, I have chosen not to use it, as even if I got it all working - and I feel confident that given the time I could - I would be fearful of future changes, as each time I needed to change it I would need to spend time and effort remembering how it worked. I feel this extra effort outweighs any benefit provided by the convenience provided.
 
-As such, I won't be using `simple_form` on my current project. Not because I think it is bad software or unfit for purpose, I have chosen not to use it, as once I got it all working I would be fearful of needing future changes, and I feel this outweighs any benefit provided by the convenience of gem offers.
+This may be due to the complex nature of my application, or it may be that `simple_form` really is only suitable for vanilla forms.
 
-This may be due to the complex nature of my application, or it may just be `simple_form` should remain in the realms of vanilla forms.
+## Final solution
+
+For referrence I have provided the code I used in my final solution below:
+
+### Helper method 'form_helper.rb':
+
+```
+module FormHelper
+  def field(f, field_name:, hint: nil, &block)
+    errors = Array(field_name).flat_map { |fn| f.object.errors[fn] }.uniq.sort.join('<br>').presence
+    render 'form/field', hint: hint, error: errors, block: block
+  end
+
+  def field_tag(value:, error_proc: ->(_) { nil }, hint: nil, &block)
+    errors = error_proc.call(value)
+    render 'form/field', hint: hint, error: errors, block: block
+  end
+end
+```
+
+### View partial 'form/_field.html.slim'
+
+```
+.form-group class=('has-danger' if error)
+  = capture(&block)
+  - if error
+    .form-control-feedback= error.html_safe
+  - if hint
+    small.text-muted=hint
+```
+
+### Example usage:
+
+__Simple field__
+```
+= field(f, field_name: :date) do
+  = f.label :date
+  = f.date_field :date
+```
+
+__Multiple fields with shared error messaging__
+```
+= field(f, field_name: [:price, :currency])
+  = f.label :price
+    = f.text_field :price, type: :number, step: '0.01', min: '0'
+    = f.text_field :currency
+```
+
+__Using '*_tag' helpers__
+
+```
+= field_tag(value: params[:ticker], error_proc: ->(value) { 'please enter ticker' if value.blank? }) do
+  = label_tag :ticker
+  = text_field_tag :ticker, params[:ticker]
+```
