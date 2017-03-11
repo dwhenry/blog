@@ -19,13 +19,13 @@ For referrence I have provided the code I used in my final solution below:
 ```
 module FormHelper
   def field(f, field_name:, hint: nil, &block)
-    errors = Array(field_name).flat_map { |fn| f.object.errors[fn] }.uniq.sort.join('<br>').presence
-    render 'form/field', hint: hint, error: errors, block: block
+    errors = Array(field_name).flat_map { |fn| f.object.errors[fn] }.uniq.sort
+    render 'form/field', hint: hint, errors: errors, block: block
   end
 
   def field_tag(value:, error_proc: ->(_) { nil }, hint: nil, &block)
-    errors = error_proc.call(value)
-    render 'form/field', hint: hint, error: errors, block: block
+    errors = [error_proc.call(value)].compact
+    render 'form/field', hint: hint, errors: errors, block: block
   end
 end
 ```
@@ -33,10 +33,12 @@ end
 ### View partial 'form/_field.html.slim'
 
 ```
-.form-group class=('has-danger' if error)
+.form-group class=('has-danger' if errors.any?)
   = capture(&block)
-  - if error
-    .form-control-feedback= error.html_safe
+  - if errors.any?
+    .errors
+      - errors.each do |error|
+        .error= error
   - if hint
     small.text-muted=hint
 ```
