@@ -1,0 +1,97 @@
+# Order of magnitude
+
+I enjoy doing online puzzles and feel one of the best types of puzzles that I encounter are ones where the solution requires you to rethink your approach as the problem sets increases. The below shows two solutions to a given problem (neither of which are particularly pretty as they are written for the sole purpose of calculating a one off solution) - see the problem [here](https://adventofcode.com/2018/day/9).
+
+## Solution 1
+
+		pieces = 70904 * 100
+		players = 473
+
+		played_pieces = [0, 1]
+		i = 1
+		player = -1
+		result = Hash.new {|h,k| h[k] = 0}
+
+		(pieces + 1).times do |piece|
+		  player = player >= players ? 1 : player + 1
+		  next if piece < 2
+
+		  if piece % 23 != 0
+		    i += 1
+		    i -= played_pieces.size if i >= played_pieces.size
+		    played_pieces = played_pieces[0..i] + [piece] + played_pieces[i+1..-1]
+		    i += 1
+		  else
+		    i -= 7
+		    i += played_pieces.size if i < 0
+		    result[player] = result[player] + piece + played_pieces[i]
+
+		    if i == 0
+		      print 'x'
+		      played_pieces = played_pieces[1..-1]
+		    else
+		      played_pieces = played_pieces[0..i-1] + played_pieces[i+1..-1]
+		    end
+		  end
+		end
+
+		puts result.values.sort.last
+
+## Solution 2
+
+		pieces = 70904 * 100
+		players = 473
+
+		class Node
+		  attr_accessor :p, :n
+		  attr_reader :value
+
+		  def initialize(p, n, value)
+		    @p = p
+		    @n = n
+		    @value = value
+		  end
+
+		  def prev(c=7)
+		    c == 1 ? p : p.prev(c-1)
+		  end
+
+		  def insert(value)
+		    self.n.p = self.n = Node.new(self, n, value)
+		  end
+
+		  def remove
+		    p.n = n
+		    n.p = p
+		    [self.n, value]
+		  end
+		end
+
+		n0 = Node.new(nil, nil, 0)
+		n1 = Node.new(n0, n0, 1)
+		n0.n = n0.p = n1
+
+		c = n1
+		player = -1
+		result = Hash.new {|h,k| h[k] = 0}
+
+		(pieces + 1).times do |t|
+		  player = player >= players ? 1 : player + 1
+		  next if t < 2
+
+		  if t % 23 != 0
+		    c = c.n.insert(t)
+		  else
+		    c, remove_value = c.prev.remove
+		    result[player] = result[player] + t + remove_value
+		  end
+		end
+
+		puts r.values.sort.last
+
+
+Why do I have two solution to a single problem? The puzzle had a significant increase in the problem space (factor of 100), this highlighted a significant performance bug in the solution. The performance was so bad that I was above to write and run the second solution before the first had completed. The issue with the first solution was that as the problem space increased it took increasingly longer to find a solution. the.
+
+This was an exercise in fun, but it is wtill possible to learn something from it, as you can easily encounter similar problems in your day job. Your approach does matter, and it should be geared to the solution. By this I mean my initial approach was the best solution to the initial problem as it was quite easy to write and array storage made sense. The second solution using a linked list is more complicated, using a custom data storeage object, and while the code itself is in some ways simplier, the ideas behind it are more coplicated and would have been overengineered for the initial problem.
+
+I wonder what more junior developers would make of this problem and how they would overcome the inherit failure of the simple (Array based storage) solution? For that matter I wonder how most seniors would tackle this problem?
